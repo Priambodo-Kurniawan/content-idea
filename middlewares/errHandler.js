@@ -16,7 +16,7 @@ function errHandler(err, req, res, next) {
       break;
 
     case "NotAuthorize":
-      msg = ["data not found"];
+      msg = ["please login first"];
       code = 401;
       break;
 
