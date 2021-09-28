@@ -1,0 +1,7 @@
+{
+  "contentIdea": {
+    "url": "https://api.answersocrates.com/v4/suggestions",
+    "method": "GET",
+    "qouta": 100
+  }
+}

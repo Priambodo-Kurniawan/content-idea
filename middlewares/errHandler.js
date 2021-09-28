@@ -6,7 +6,9 @@ function errHandler(err, req, res, next) {
   switch (errName) {
     case "SequelizeValidationError":
     case "SequelizeUniqueConstraintError":
-      msg = err.errors.map((e) => e.message);
+    case "BadRequest":
+      if (err.msg) msg = [err.msg];
+      else msg = err.errors.map((e) => e.message);
       code = 400;
       break;
 
@@ -18,6 +20,11 @@ function errHandler(err, req, res, next) {
     case "NotAuthorize":
       msg = ["please login first"];
       code = 401;
+      break;
+
+    case "Forbiden":
+      msg = ["ups forbiden to do this action"];
+      code = 403;
       break;
 
     default:
