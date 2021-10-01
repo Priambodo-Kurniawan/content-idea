@@ -2,6 +2,38 @@
   "contentIdea": {
     "url": "https://api.answersocrates.com/v4/suggestions",
     "method": "GET",
-    "qouta": 100
+    "quota": 100
+  },
+  "generateContent": {
+    "url": "https://api.rytr.me/",
+    "method": "POST",
+    "data": {
+      "operation": "generateExecute",
+      "params": {
+        "driveIdFolder": null,
+        "driveIdFile": "61569fc5ab0a544bdf4d31d9",
+        "typeId": "6062d819be972a000c6a05a3",
+        "toneId": "6058219030f7b1000c1c4f92",
+        "languageId": "6094f9b4addddd000c04c94b",
+        "contextInputs": { "POST_TOPIC_LABEL": "lagu anime populer saat ini" },
+        "variations": 1
+      }
+    },
+    "headers": {
+      "accept": "application/json, text/plain, */*",
+      "content-type": "application/json"
+    },
+    "config": {
+      "headers": [
+        {
+          "key": "authentication",
+          "value": "TOKEN_RYTR"
+        }
+      ],
+      "data": {
+        "update": [["params", "contextInputs"]]
+      }
+    },
+    "quota": 30
   }
 }

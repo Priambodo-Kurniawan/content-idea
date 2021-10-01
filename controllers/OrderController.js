@@ -57,6 +57,28 @@ class OrderController {
       next(error);
     }
   }
+  static async getProduct(req, res, next) {
+    try {
+      let orders = await Order.findAll({
+        where: {
+          userId: req.user.id,
+        },
+        attributes: {
+          exclude: ["paymentStatus", "userId"],
+        },
+        include: {
+          model: Product,
+          as: "product",
+          attributes: {
+            exclude: ["userId", "config"],
+          },
+        },
+      });
+      res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = OrderController;

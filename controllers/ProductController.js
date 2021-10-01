@@ -51,11 +51,15 @@ class ProductController {
       const product = await Product.update(data, {
         where: { id: req.params.id },
         returning: true,
-        plain: true,
       });
+      const editedData = product[1];
+
+      if (!editedData.length)
+        throw { name: "NotFound", msg: "ups data not found" };
+
       res.status(200).json({
         msg: "successfully edit product",
-        product: product[1],
+        product: editedData[0],
       });
     } catch (error) {
       next(error);

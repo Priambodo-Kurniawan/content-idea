@@ -1,5 +1,5 @@
 const { verifyToken } = require("../helpers/jwt");
-const { User } = require("../models");
+const { User, Order, Product } = require("../models");
 
 class Auth {
   static async authenticationCustomer(req, res, next) {
@@ -18,6 +18,33 @@ class Auth {
       };
       next();
     } catch (error) {
+      next(error);
+    }
+  }
+
+  static async authApi(req, res, next) {
+    try {
+      let apiKey = req.headers.api_key;
+      if (!apiKey) throw { name: "BadRequest", msg: "api key is required" };
+
+      let orderDetail = await Order.findOne({
+        where: {
+          apiKey,
+        },
+        include: {
+          model: Product,
+          as: "product",
+        },
+      });
+
+      if (!orderDetail) throw { name: "NotFound", msg: "api key is wrong" };
+      await verifyToken(apiKey);
+      req.config = orderDetail.product.config;
+      req.limit = orderDetail.limit;
+      req.subscriptionDate = orderDetail.subscriptionDate;
+      next();
+    } catch (error) {
+      console.log(error);
       next(error);
     }
   }
