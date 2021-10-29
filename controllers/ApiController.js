@@ -13,25 +13,28 @@ class ApiController {
       let config = req.config;
       let feature = req.params.feature;
       let nextMonth = add(new Date(req.subscriptionDate), { months: 1 });
-      let isAfterDate = isAfter(new Date(), nextMonth);
+      let isAfterDate = isAfter(add(new Date(), { days: 1 }), nextMonth);
       let subscriptionDate = req.subscriptionDate;
-
-      // console.log(config);
 
       if (isAfterDate) {
         subscriptionDate = nextMonth;
-        limit[feature] = config[feature].quota; // default
+        for (const key in limit) {
+          // default
+          limit[key] = config[key].quota;
+        }
       }
 
       if (!limit[feature] && limit[feature] !== 0) {
         limit[feature] = config[feature].quota; // default
       }
 
-      if (limit[feature] <= 0)
+      if (limit[feature] <= 0) {
+        // limit[feature] = 10;
         throw {
           name: "BadRequest",
           msg: "Ops... you hit the limit for this month",
         };
+      }
 
       // set request options
       if (config[feature].hasOwnProperty("config")) {
