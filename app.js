@@ -1,3 +1,4 @@
+console.log(process.env.environment, "<<< env");
 if (process.env.environment !== "production") {
   require("dotenv").config();
 }
