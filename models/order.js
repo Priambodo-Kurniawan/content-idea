@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
           }
           order.limit = obj;
           let keys = Object.keys(option.configData);
-          order.apiKey = generateToken(keys);
+          order.apiKey = generateToken({ keys });
         },
       },
       modelName: "Order",
