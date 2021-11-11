@@ -63,7 +63,8 @@ module.exports = (sequelize, DataTypes) => {
             obj[i] = option.configData[i].quota;
           }
           order.limit = obj;
-          order.apiKey = generateToken(option.configData);
+          let keys = Object.keys(option.configData);
+          order.apiKey = generateToken(keys);
         },
       },
       modelName: "Order",
