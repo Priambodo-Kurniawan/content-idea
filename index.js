@@ -16,3 +16,5 @@ app.use(errHandler);
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 // for serverless vercel
+
+module.exports = app;
